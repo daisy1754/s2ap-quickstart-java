@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.walletobjects.model.GiftCardObject;
+import com.google.api.services.walletobjects.model.LoyaltyObject;
+import com.google.api.services.walletobjects.model.OfferObject;
 import com.google.wallet.objects.utils.Config;
 import com.google.wallet.objects.utils.WobCredentials;
 import com.google.wallet.objects.utils.WobPayload;
@@ -65,14 +69,23 @@ public class WobGenerateJwtServlet extends HttpServlet {
 
     // Create the appropriate Object/Classes
     if (type.equals("loyalty")) {
-      payload.addObject(Loyalty.generateLoyaltyObject(credentials.getIssuerId(),
-          context.getInitParameter("LoyaltyClassId"), context.getInitParameter("LoyaltyObjectId")));
+      LoyaltyObject obj = Loyalty.generateLoyaltyObject(credentials.getIssuerId(),
+          context.getInitParameter("LoyaltyClassId"), context.getInitParameter("LoyaltyObjectId"));
+
+      obj.setFactory(new GsonFactory());
+          payload.addObject(obj);
     } else if (type.equals("offer")) {
-      payload.addObject(Offer.generateOfferObject(credentials.getIssuerId(),
-          context.getInitParameter("OfferClassId"), context.getInitParameter("OfferObjectId")));
+      OfferObject obj = Offer.generateOfferObject(credentials.getIssuerId(),
+          context.getInitParameter("OfferClassId"), context.getInitParameter("OfferObjectId"));
+      obj.setFactory(new GsonFactory());
+
+      payload.addObject(obj);
     } else if (type.equals("giftcard")) {
-      payload.addObject(GiftCard.generateGiftCardObject(credentials.getIssuerId(),
-          context.getInitParameter("GiftCardClassId"), context.getInitParameter("GiftCardObjectId")));
+      GiftCardObject obj = GiftCard.generateGiftCardObject(credentials.getIssuerId(),
+          context.getInitParameter("GiftCardClassId"), context.getInitParameter("GiftCardObjectId"));
+
+      obj.setFactory(new GsonFactory());
+      payload.addObject(obj);
     } /*else if (type.equals("generic")) {
       payload.addObject(Generic.generateGenericObject(utils.getIssuerId(),
           "GenericClass", "GenericObject"));
