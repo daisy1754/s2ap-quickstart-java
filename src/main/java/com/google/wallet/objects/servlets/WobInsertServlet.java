@@ -74,10 +74,6 @@ public class WobInsertServlet extends HttpServlet {
         GiftCardClass giftCardClass = GiftCard.generateGiftCardClass(credentials.getIssuerId(),
             context.getInitParameter("GiftCardClassId"));
         response = client.giftcardclass().insert(giftCardClass).execute();
-    } else if (type.equals("generic")) {
-      GenericClass genericClass = Generic.generateGenericClass(
-          utils.getIssuerId(), "GenericClass");
-      response = client.genericclass().insert(genericClass).execute();
     }*/
 
 

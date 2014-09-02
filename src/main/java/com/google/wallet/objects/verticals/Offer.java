@@ -29,7 +29,7 @@ public class Offer {
 
     // Define Wallet Object
     OfferObject object = new OfferObject().setClassId(issuerId + "." + classId)
-        .setId(issuerId + "." + objectId).setVersion(1L).setBarcode(barcode)
+        .setId(issuerId + "." + objectId).setBarcode(barcode)
         .setState("active");
 
     return object;
@@ -97,7 +97,6 @@ public class Offer {
 
     OfferClass wobClass = new OfferClass()
         .setId(issuerId + "." + classId)
-        .setVersion(1L)
         .setIssuerName("Baconrista Coffee")
         .setTitle("20% off one bacon fat latte")
         .setProvider("Baconrista Deals")

@@ -93,7 +93,7 @@ public class Loyalty {
     // Define Wallet Instance
     LoyaltyObject object = new LoyaltyObject()
         .setClassId(issuerId + "." + classId).setId(issuerId + "." + objectId)
-        .setVersion(1L).setState("active").setBarcode(barcode).setInfoModuleData(infoModuleData)
+        .setState("active").setBarcode(barcode).setInfoModuleData(infoModuleData)
         .setAccountName("Jane Doe").setTextModulesData(textModulesData)
         .setMessages(messages).setLinksModuleData(linksModuleData)
         .setAccountId("1234567890").setLoyaltyPoints(points);
@@ -177,7 +177,6 @@ public class Loyalty {
     // Create class
     LoyaltyClass wobClass = new LoyaltyClass()
         .setId(issuerId + "." + classId)
-        .setVersion(1L)
         .setIssuerName("Baconrista")
         .setProgramName("Baconrista Rewards")
         .setProgramLogo(

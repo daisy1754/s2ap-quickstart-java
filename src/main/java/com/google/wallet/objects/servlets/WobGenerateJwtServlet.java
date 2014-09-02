@@ -26,7 +26,7 @@ import com.google.wallet.objects.verticals.GiftCard;
 
 /**
  * This servlet generates Save to Wallet JWTs based on the type URL parameter in
- * the request. Loyalty, Offer, and Generic only contain the Object. Boarding
+ * the request. Loyalty, and Offer only contain the Object. Boarding
  * pass contains 2 Classes and 2 Objects representing the a multi leg fight.
  * Credentials are stored in web.xml which is why it needs ServletContext.
  *
@@ -86,10 +86,7 @@ public class WobGenerateJwtServlet extends HttpServlet {
 
       obj.setFactory(new GsonFactory());
       payload.addObject(obj);
-    } /*else if (type.equals("generic")) {
-      payload.addObject(Generic.generateGenericObject(utils.getIssuerId(),
-          "GenericClass", "GenericObject"));
-    } else if (type.equals("boardingpass")) {
+    } /*else if (type.equals("boardingpass")) {
       payload.addObject(BoardingPass.generateBoardingPassClass(
           utils.getIssuerId(), "BoardingPassClassFirstLeg"));
       payload.addObject(BoardingPass.generateBoardingPassObject(
