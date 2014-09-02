@@ -108,7 +108,6 @@ public class BoardingPass {
 
     BoardingPassClass flight = new BoardingPassClass()
         .setId(issuerId + "." + classId)
-        .setVersion(1L)
         .setIssuerName("Imagine Airlines")
         .setHomepageUri(new Uri().setUri("https://www.example.com"))
         .setRenderSpecs(renderSpec)
