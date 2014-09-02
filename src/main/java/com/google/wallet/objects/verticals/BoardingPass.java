@@ -56,6 +56,7 @@ public class BoardingPass {
         .setClassId(issuerId + "." + classId)
         .setId(issuerId + "." + objectId)
         .setState("active")
+        .setVersion(1L)
         .setBarcode(barcode)
         .setMessages(messages)
 

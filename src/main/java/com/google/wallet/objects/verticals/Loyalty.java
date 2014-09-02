@@ -93,7 +93,7 @@ public class Loyalty {
     // Define Wallet Instance
     LoyaltyObject object = new LoyaltyObject()
         .setClassId(issuerId + "." + classId).setId(issuerId + "." + objectId)
-        .setState("active").setBarcode(barcode).setInfoModuleData(infoModuleData)
+        .setState("active").setVersion(1L).setBarcode(barcode).setInfoModuleData(infoModuleData)
         .setAccountName("Jane Doe").setTextModulesData(textModulesData)
         .setMessages(messages).setLinksModuleData(linksModuleData)
         .setAccountId("1234567890").setLoyaltyPoints(points);

@@ -30,7 +30,7 @@ public class Offer {
     // Define Wallet Object
     OfferObject object = new OfferObject().setClassId(issuerId + "." + classId)
         .setId(issuerId + "." + objectId).setBarcode(barcode)
-        .setState("active");
+        .setState("active").setVersion(1L);
 
     return object;
   }

@@ -64,7 +64,7 @@ public class GiftCard {
     // Define Wallet Instance
     GiftCardObject object = new GiftCardObject()
         .setClassId(issuerId + "." + classId).setId(issuerId + "." + objectId)
-        .setState("active").setBarcode(barcode)
+        .setState("active").setVersion(1L).setBarcode(barcode)
         .setTextModulesData(textModulesData)
         .setLinksModuleData(linksModuleData)
         .setBalance(balance)
