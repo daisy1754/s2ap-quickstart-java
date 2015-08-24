@@ -1,28 +1,27 @@
 package com.google.wallet.objects.utils;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 /**
  * Created by pying on 2/7/14.
  */
 public class Config {
 
-  private static Config config;
-
-  private static Map<String, WobCredentials> credentials;
+  private static Config config = new Config();
+  private Map<String, WobCredentials> credentials;
 
   private Config() {
+      credentials = new HashMap<String, WobCredentials>();
   }
 
   public static Config getInstance() {
     if (config == null) {
-
-      config = new Config();
-      credentials = new HashMap<String, WobCredentials>();
+        config = new Config();
     }
     return config;
   }
