@@ -33,7 +33,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   </welcome-file-list>
     <context-param>
         <param-name>ServiceAccountEmailAddress</param-name>
-        <param-value>355382859599-hsjmc3ce9n6ep9k5s00loo37eipccvpc@developer.gserviceaccount.com</param-value>
+        <param-value>YourServiceAccountEmail@developer.gserviceaccount.com</param-value>
     </context-param>
     <context-param>
         <param-name>ServiceAccountPrivateKey</param-name>
@@ -42,7 +42,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </context-param>
     <context-param>
         <param-name>IssuerId</param-name>
-        <param-value>2951238800106304306</param-value>
+        <param-value>YourIssuerId</param-value>
     </context-param>
   <context-param>
       <param-name>ApplicationName</param-name>
