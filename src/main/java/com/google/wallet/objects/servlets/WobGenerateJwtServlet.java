@@ -53,6 +53,18 @@ public class WobGenerateJwtServlet extends HttpServlet {
       e.printStackTrace();
     }
 
+    // Not able to get a JWT, stop here (avoid NullPointerExceptions below)
+    if (credentials == null || utils == null) {
+      try {
+        PrintWriter out = resp.getWriter();
+        out.write("null");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      return;
+    }
+
 
     // Get type of JWT to generate
     String type = req.getParameter("type");
@@ -73,12 +85,12 @@ public class WobGenerateJwtServlet extends HttpServlet {
           context.getInitParameter("LoyaltyClassId"), context.getInitParameter("LoyaltyObjectId"));
 
       obj.setFactory(new GsonFactory());
-          payload.addObject(obj);
+      payload.addObject(obj);
     } else if (type.equals("offer")) {
       OfferObject obj = Offer.generateOfferObject(credentials.getIssuerId(),
           context.getInitParameter("OfferClassId"), context.getInitParameter("OfferObjectId"));
-      obj.setFactory(new GsonFactory());
 
+      obj.setFactory(new GsonFactory());
       payload.addObject(obj);
     } else if (type.equals("giftcard")) {
       GiftCardObject obj = GiftCard.generateGiftCardObject(credentials.getIssuerId(),
@@ -99,20 +111,16 @@ public class WobGenerateJwtServlet extends HttpServlet {
           "BoardingPassObjectSecondLeg"));
     } */
 
-    // Convert the object into a Save to Wallet Jwt
-    String jwt = null;
-    // Respond with JWT
-    PrintWriter out = null;
-
     try {
-      jwt = utils.generateSaveJwt(payload, origins);
-      out = resp.getWriter();
+      // Convert the object into a Save to Wallet Jwt and write it as the response
+      String jwt = utils.generateSaveJwt(payload, origins);
+      PrintWriter out = resp.getWriter();
+      out.write(jwt);
     } catch (IOException e) {
       e.printStackTrace();
     } catch (SignatureException e) {
       e.printStackTrace();
     }
-    out.write(jwt);
   }
 
 }

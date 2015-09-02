@@ -2,14 +2,16 @@
  * Save to Wallet success handler
  */
 var successHandler = function(params){
-  console.log("Object added successfully" + params);
+  console.log("Object added successfully", params);
 }
 
 /**
  * Save to Wallet failure handler
  */
 var failureHandler = function(params){
-  console.log("Object insertion failed" + params);
+  console.log("Object insertion failed", params);
+  var errorLi = $('<li>').text('Error: ' + JSON.stringify(params));
+  $('#errors').append(errorLi);
 }
 
 /**
@@ -18,55 +20,45 @@ var failureHandler = function(params){
 function init(){
   document.getElementById("loyalty").addEventListener("click", function(){
     $.get("insert?type=loyalty", function(data){
-      console.log(data);
+      console.log("Loyalty", data);
     })
   });
   document.getElementById("offer").addEventListener("click", function(){
     $.get("insert?type=offer", function(data){
-      console.log(data);
+      console.log("Offer", data);
     })
   });
-  /*document.getElementById("giftcard").addEventListener("click", function(){
-	    $.get("insert?type=giftcard", function(data){
-	      console.log(data);
-	    })
-  });
-  document.getElementById("generic").addEventListener("click", function(){
-    $.get("insert?type=generic", function(data){
-      console.log(data);
+  document.getElementById("giftcard").addEventListener("click", function(){
+    $.get("insert?type=giftcard", function(data){
+      console.log("Gift Card", data);
     })
-  });*/
+  });
 
-  $.when($.get("jwt?type=loyalty", function(data){
-      saveToWallet = document.createElement("g:savetowallet");
-      saveToWallet.setAttribute("jwt", data);
-      saveToWallet.setAttribute("onsuccess","successHandler");
-      saveToWallet.setAttribute("onfailure","failureHandler");
-      document.querySelector("#loyaltysave").appendChild(saveToWallet);}),
-      $.get("jwt?type=offer", function(data){
-      saveToWallet = document.createElement("g:savetowallet");
-      saveToWallet.setAttribute("jwt", data);
-      saveToWallet.setAttribute("onsuccess","successHandler");
-      saveToWallet.setAttribute("onfailure","failureHandler");
-      document.querySelector("#offersave").appendChild(saveToWallet);})/*,
-      $.get("jwt?type=giftcard", function(data){
-      saveToWallet = document.createElement("g:savetowallet");
-      saveToWallet.setAttribute("jwt", data);
-      saveToWallet.setAttribute("onsuccess","successHandler");
-      saveToWallet.setAttribute("onfailure","failureHandler");
-      document.querySelector("#giftcardsave").appendChild(saveToWallet);}),
-      $.get("jwt?type=generic", function(data){
-      saveToWallet = document.createElement("g:savetowallet");
-      saveToWallet.setAttribute("jwt", data);
-      saveToWallet.setAttribute("onsuccess","successHandler");
-      saveToWallet.setAttribute("onfailure","failureHandler");
-      document.querySelector("#genericsave").appendChild(saveToWallet);}),
-      $.get("jwt?type=boardingpass", function(data){
-      saveToWallet = document.createElement("g:savetowallet");
-      saveToWallet.setAttribute("jwt", data);
-      saveToWallet.setAttribute("onsuccess","successHandler");
-      saveToWallet.setAttribute("onfailure","failureHandler");
-      document.querySelector("#boardingpasssave").appendChild(saveToWallet);})*/).done(function(){
+  $.when(
+        $.get("jwt?type=loyalty", function(data) {
+          saveToWallet = document.createElement("g:savetowallet");
+          saveToWallet.setAttribute("theme", "light");
+          saveToWallet.setAttribute("jwt", data);
+          saveToWallet.setAttribute("onsuccess","successHandler");
+          saveToWallet.setAttribute("onfailure","failureHandler");
+          document.querySelector("#loyaltysave").appendChild(saveToWallet);
+        }),
+        $.get("jwt?type=offer", function(data) {
+          saveToWallet = document.createElement("g:savetowallet");
+          saveToWallet.setAttribute("theme", "light");
+          saveToWallet.setAttribute("jwt", data);
+          saveToWallet.setAttribute("onsuccess","successHandler");
+          saveToWallet.setAttribute("onfailure","failureHandler");
+          document.querySelector("#offersave").appendChild(saveToWallet);
+        }),
+        $.get("jwt?type=giftcard", function(data) {
+          saveToWallet = document.createElement("g:savetowallet");
+          saveToWallet.setAttribute("theme", "light");
+          saveToWallet.setAttribute("jwt", data);
+          saveToWallet.setAttribute("onsuccess","successHandler");
+          saveToWallet.setAttribute("onfailure","failureHandler");
+          document.querySelector("#giftcardsave").appendChild(saveToWallet);
+      })).done(function() {
         script = document.createElement("script");
         script.src = "https://apis.google.com/js/plusone.js";
         document.head.appendChild(script);

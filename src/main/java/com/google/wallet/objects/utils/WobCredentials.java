@@ -91,6 +91,8 @@ public class WobCredentials {
 
   private void generateRsaKey() throws IOException, GeneralSecurityException {
     File file = new File(serviceAccountPrivateKeyPath);
+    System.out.println("Key Path: " + file.getAbsolutePath());
+
     byte[] bytes = ByteStreams.toByteArray(new FileInputStream(file));
     InputStream keyStream = new ByteArrayInputStream(bytes);
     serviceAccountPrivateKey = (RSAPrivateKey) SecurityUtils.loadPrivateKeyFromKeyStore(

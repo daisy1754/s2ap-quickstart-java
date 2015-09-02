@@ -28,6 +28,17 @@ public class Config {
 
   public WobCredentials getCredentials(String serviceEmail, String privateKeyPath, String applicationName, String issuer)
       throws IOException, GeneralSecurityException {
+
+    if (serviceEmail.startsWith("YourServiceAccountEmail")) {
+      System.err.println("ERROR: ServiceAccountEmail not properly configured in web.xml");
+      return null;
+    }
+
+    if (issuer.startsWith("YourIssuerId")) {
+      System.err.println("ERROR: IssuerId not properly configured in web.xml");
+      return null;
+    }
+
     String key = issuer + privateKeyPath;
 
     WobCredentials credential = credentials.get(key);

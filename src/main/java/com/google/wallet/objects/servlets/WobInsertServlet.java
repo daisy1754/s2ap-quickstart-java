@@ -2,11 +2,13 @@ package com.google.wallet.objects.servlets;
 
 import com.google.api.client.json.GenericJson;
 import com.google.api.services.walletobjects.Walletobjects;
+import com.google.api.services.walletobjects.model.GiftCardClass;
 import com.google.api.services.walletobjects.model.LoyaltyClass;
 import com.google.api.services.walletobjects.model.OfferClass;
 import com.google.wallet.objects.utils.Config;
 import com.google.wallet.objects.utils.WobClientFactory;
 import com.google.wallet.objects.utils.WobCredentials;
+import com.google.wallet.objects.verticals.GiftCard;
 import com.google.wallet.objects.verticals.Loyalty;
 import com.google.wallet.objects.verticals.Offer;
 
@@ -52,36 +54,31 @@ public class WobInsertServlet extends HttpServlet {
       return;
     }
 
-    // Get request type
+    // Get request typehich
     String type = req.getParameter("type");
 
     GenericJson response = null;
 
     // Create and insert type
-    if (type.equals("loyalty")) {
-      LoyaltyClass loyaltyClass = Loyalty.generateLoyaltyClass(
-          credentials.getIssuerId(), context.getInitParameter("LoyaltyClassId"));
-      try {
-        response = client.loyaltyclass().insert(loyaltyClass).execute();
-      } catch (IOException e) {
-        e.printStackTrace();
-        return;
-      }
-    } else if (type.equals("offer")) {
-      OfferClass offerClass = Offer.generateOfferClass(credentials.getIssuerId(),
-          context.getInitParameter("OfferClassId"));
-      try {
-        response = client.offerclass().insert(offerClass).set("strict","true").execute();
-      } catch (IOException e) {
-        e.printStackTrace();
-        return;
-      }
-    } /*else if (type.equals("giftcard")) {
-        GiftCardClass giftCardClass = GiftCard.generateGiftCardClass(credentials.getIssuerId(),
-            context.getInitParameter("GiftCardClassId"));
-        response = client.giftcardclass().insert(giftCardClass).execute();
-    }*/
+    try {
+        if (type.equals("loyalty")) {
+            LoyaltyClass loyaltyClass = Loyalty.generateLoyaltyClass(
+                    credentials.getIssuerId(), context.getInitParameter("LoyaltyClassId"));
+            response = client.loyaltyclass().insert(loyaltyClass).execute();
+        } else if (type.equals("offer")) {
+            OfferClass offerClass = Offer.generateOfferClass(credentials.getIssuerId(),
+                    context.getInitParameter("OfferClassId"));
 
+            response = client.offerclass().insert(offerClass).set("strict", "true").execute();
+        } else if (type.equals("giftcard")) {
+            GiftCardClass giftCardClass = GiftCard.generateGiftCardClass(credentials.getIssuerId(),
+                    context.getInitParameter("GiftCardClassId"));
+            response = client.giftcardclass().insert(giftCardClass).execute();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return;
+    }
 
     // For server side insertion of Boarding passes instead of using Save to
     // Wallet
