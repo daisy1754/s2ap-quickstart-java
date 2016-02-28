@@ -20,14 +20,13 @@ import com.google.wallet.objects.utils.Config;
 import com.google.wallet.objects.utils.WobCredentials;
 import com.google.wallet.objects.utils.WobPayload;
 import com.google.wallet.objects.utils.WobUtils;
+import com.google.wallet.objects.verticals.GiftCard;
 import com.google.wallet.objects.verticals.Loyalty;
 import com.google.wallet.objects.verticals.Offer;
-import com.google.wallet.objects.verticals.GiftCard;
 
 /**
  * This servlet generates Save to Wallet JWTs based on the type URL parameter in
- * the request. Loyalty, and Offer only contain the Object. Boarding
- * pass contains 2 Classes and 2 Objects representing the a multi leg fight.
+ * the request. Each loyalty, offer, and giftcard only contain the Object.
  * Credentials are stored in web.xml which is why it needs ServletContext.
  *
  * @author pying
@@ -98,18 +97,7 @@ public class WobGenerateJwtServlet extends HttpServlet {
 
       obj.setFactory(new GsonFactory());
       payload.addObject(obj);
-    } /*else if (type.equals("boardingpass")) {
-      payload.addObject(BoardingPass.generateBoardingPassClass(
-          utils.getIssuerId(), "BoardingPassClassFirstLeg"));
-      payload.addObject(BoardingPass.generateBoardingPassObject(
-          utils.getIssuerId(), "BoardingPassClassFirstLeg",
-          "BoardingPassObjectFirstLeg"));
-      payload.addObject(BoardingPass.generateBoardingPassClass(
-          utils.getIssuerId(), "BoardingPassClassSecondLeg"));
-      payload.addObject(BoardingPass.generateBoardingPassObject(
-          utils.getIssuerId(), "BoardingPassClassSecondLeg",
-          "BoardingPassObjectSecondLeg"));
-    } */
+    }
 
     try {
       // Convert the object into a Save to Wallet Jwt and write it as the response
