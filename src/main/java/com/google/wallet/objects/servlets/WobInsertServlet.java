@@ -23,9 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * This servlet handles requests to insert new Wallet Classes. It parses the
- * type URL paramter to determine the type and generates the respective Class to
- * insert. The valid types are: loyalty, offers, generic and boarding pass( if
- * you comment that section out).
+ * type URL parameter to determine the type and generates the respective Class to
+ * insert. The valid types are: loyalty, offers, or giftcard.
  *
  * @author pying
  */
@@ -68,7 +67,6 @@ public class WobInsertServlet extends HttpServlet {
         } else if (type.equals("offer")) {
             OfferClass offerClass = Offer.generateOfferClass(credentials.getIssuerId(),
                     context.getInitParameter("OfferClassId"));
-
             response = client.offerclass().insert(offerClass).set("strict", "true").execute();
         } else if (type.equals("giftcard")) {
             GiftCardClass giftCardClass = GiftCard.generateGiftCardClass(credentials.getIssuerId(),
@@ -79,15 +77,6 @@ public class WobInsertServlet extends HttpServlet {
         e.printStackTrace();
         return;
     }
-
-    // For server side insertion of Boarding passes instead of using Save to
-    // Wallet
-    /*
-     * else if (type.equals("boardingpass")) { BoardingPassClass boardingPass =
-     * BoardingPass.generateBoardingPassClass( utils.getIssuerId(),
-     * "BoardingPassClass"); response =
-     * client.boardingpassclass().insert(boardingPass).execute(); }
-     */
 
     // Respond to request with class json
     PrintWriter out = null;
