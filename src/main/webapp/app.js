@@ -36,7 +36,7 @@ function init(){
 
   $.when(
         $.get("jwt?type=loyalty", function(data) {
-          saveToWallet = document.createElement("g:savetowallet");
+          saveToWallet = document.createElement("g:savetoandroidpay");
           saveToWallet.setAttribute("theme", "light");
           saveToWallet.setAttribute("jwt", data);
           saveToWallet.setAttribute("onsuccess","successHandler");
@@ -44,7 +44,7 @@ function init(){
           document.querySelector("#loyaltysave").appendChild(saveToWallet);
         }),
         $.get("jwt?type=offer", function(data) {
-          saveToWallet = document.createElement("g:savetowallet");
+          saveToWallet = document.createElement("g:savetoandroidpay");
           saveToWallet.setAttribute("theme", "light");
           saveToWallet.setAttribute("jwt", data);
           saveToWallet.setAttribute("onsuccess","successHandler");
@@ -52,7 +52,7 @@ function init(){
           document.querySelector("#offersave").appendChild(saveToWallet);
         }),
         $.get("jwt?type=giftcard", function(data) {
-          saveToWallet = document.createElement("g:savetowallet");
+          saveToWallet = document.createElement("g:savetoandroidpay");
           saveToWallet.setAttribute("theme", "light");
           saveToWallet.setAttribute("jwt", data);
           saveToWallet.setAttribute("onsuccess","successHandler");

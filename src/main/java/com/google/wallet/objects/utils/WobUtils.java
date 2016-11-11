@@ -42,7 +42,7 @@ import com.google.wallet.objects.webservice.WebserviceResponse;
  */
 public class WobUtils {
 
-  private final String SAVE_TO_WALLET = "savetowallet";
+  private final String SAVE_TO_ANDROID_PAY = "savetoandroidpay";
   private final String LOYALTY_WEB = "loyaltywebservice";
   private final String GOOGLE = "google";
 
@@ -148,7 +148,7 @@ public class WobUtils {
       throws SignatureException {
     JsonToken token = new JsonToken(signer);
     token.setAudience(GOOGLE);
-    token.setParam("typ", SAVE_TO_WALLET);
+    token.setParam("typ", SAVE_TO_ANDROID_PAY);
     token.setIssuedAt(new Instant(
         Calendar.getInstance().getTimeInMillis() - 5000L));
     JsonObject obj = gson.toJsonTree(payload).getAsJsonObject();
