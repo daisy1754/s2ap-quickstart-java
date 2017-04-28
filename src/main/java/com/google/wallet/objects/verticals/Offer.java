@@ -45,17 +45,6 @@ public class Offer {
   public static OfferClass generateOfferClass(String issuerId,
       String classId) {
 
-    // Define templates to use
-    List<RenderSpec> renderSpec = new ArrayList<RenderSpec>();
-
-    RenderSpec listRenderSpec = new RenderSpec().setViewName("g_list")
-        .setTemplateFamily("1.offer_list");
-    RenderSpec expandedRenderSpec = new RenderSpec().setViewName("g_expanded")
-        .setTemplateFamily("1.offer_expanded");
-
-    renderSpec.add(listRenderSpec);
-    renderSpec.add(expandedRenderSpec);
-
     // Define the Image Module Data
     List<ImageModuleData> imageModuleData = new ArrayList<ImageModuleData>();
 
@@ -103,7 +92,7 @@ public class Offer {
         .setTitleImage(
             new Image().setSourceUri(new Uri()
                 .setUri("http://farm4.staticflickr.com/3723/11177041115_6e6a3b6f49_o.jpg")))
-        .setRenderSpecs(renderSpec).setRedemptionChannel("both")
+        .setRedemptionChannel("both")
         .setReviewStatus("underReview")
         .setLinksModuleData(linksModuleData)
         .setImageModulesData(imageModuleData)
