@@ -111,17 +111,6 @@ public class Loyalty {
   public static LoyaltyClass generateLoyaltyClass(String issuerId,
       String classId) {
 
-    // Define rendering templates per view
-    List<RenderSpec> renderSpec = new ArrayList<RenderSpec>();
-
-    RenderSpec listRenderSpec = new RenderSpec().setViewName("g_list")
-        .setTemplateFamily("1.loyalty_list");
-    RenderSpec expandedRenderSpec = new RenderSpec().setViewName("g_expanded")
-        .setTemplateFamily("1.loyalty_expanded");
-
-    renderSpec.add(listRenderSpec);
-    renderSpec.add(expandedRenderSpec);
-
     // Define the Image Module Data
     List<ImageModuleData> imageModuleData = new ArrayList<ImageModuleData>();
 
@@ -188,7 +177,7 @@ public class Loyalty {
         .setLinksModuleData(linksModuleData)
         .setInfoModuleData(infoModuleData)
         .setAccountNameLabel("Member Name").setAccountIdLabel("Member Id")
-        .setRenderSpecs(renderSpec).setMessages(messages)
+        .setMessages(messages)
         .setReviewStatus("underReview").setAllowMultipleUsersPerObject(true)
         .setLocations(locations);
 
