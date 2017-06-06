@@ -106,7 +106,6 @@ public class WobCredentials {
     Section section = PemReader.readFirstSectionAndClose(reader, "PRIVATE KEY");
     byte[] bytes = section.getBase64DecodedBytes();
     PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(bytes);
-    Exception unexpectedException;
     KeyFactory keyFactory = SecurityUtils.getRsaKeyFactory();
     serviceAccountPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
   }
