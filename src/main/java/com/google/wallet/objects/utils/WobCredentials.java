@@ -5,15 +5,24 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.PemReader;
+import com.google.api.client.util.PemReader.Section;
 import com.google.api.client.util.SecurityUtils;
 import com.google.common.io.ByteStreams;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import java.security.KeyFactory;
+import java.security.spec.PKCS8EncodedKeySpec;
+
+import org.json.JSONObject;
 
 /**
  * Class to define Wallet Object related credentials. These credentials are used
@@ -90,14 +99,15 @@ public class WobCredentials {
   }
 
   private void generateRsaKey() throws IOException, GeneralSecurityException {
-    File file = new File(serviceAccountPrivateKeyPath);
-    System.out.println("Key Path: " + file.getAbsolutePath());
-
-    byte[] bytes = ByteStreams.toByteArray(new FileInputStream(file));
-    InputStream keyStream = new ByteArrayInputStream(bytes);
-    serviceAccountPrivateKey = (RSAPrivateKey) SecurityUtils.loadPrivateKeyFromKeyStore(
-        SecurityUtils.getPkcs12KeyStore(), keyStream, "notasecret",
-        "privatekey", "notasecret");
+    String content = new String(Files.readAllBytes(Paths.get(serviceAccountPrivateKeyPath)));
+    JSONObject privateKeyJson = new JSONObject(content);
+    String privateKeyPkcs8 = (String) privateKeyJson.get("private_key");
+    Reader reader = new StringReader(privateKeyPkcs8);
+    Section section = PemReader.readFirstSectionAndClose(reader, "PRIVATE KEY");
+    byte[] bytes = section.getBase64DecodedBytes();
+    PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(bytes);
+    KeyFactory keyFactory = SecurityUtils.getRsaKeyFactory();
+    serviceAccountPrivateKey = (RSAPrivateKey) keyFactory.generatePrivate(keySpec);
   }
 
   /**
