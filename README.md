@@ -8,7 +8,7 @@ This sample showcases several aspects of the API
 * Save to Android Pay insertion of classes and objects
 * The Web Service API
 
-##Creation of Classes and Objects
+## Creation of Classes and Objects
 The code for creation of classes and objects can be found under the src/com/google/wallet/objects/verticals directory.  Each Object type, such as loyalty, is broken out into its own file.  Classes are inserted using the WobInsertServlet.
 
 ## Save to Android Pay insertion of classes and objects
